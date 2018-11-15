@@ -1,0 +1,69 @@
+<div class="example-container">
+    <h2 *ngIf="mode == 'edit'" mat-dialog-title>Edit Movie</h2>
+    <h2 *ngIf="mode == 'create'" mat-dialog-title>Add Movie</h2>
+
+    <form (submit)="onAddMovie(postForm)" #postForm="ngForm">
+        <mat-dialog-content>
+            <mat-form-field>
+                <input matInput type="text" name="title" [ngModel]="movie?.Title" required minlength="2" placeholder="Movie Title"
+                    #title="ngModel">
+                <div *ngIf="title.invalid && (title.dirty || title.touched)">
+                    <mat-error class="errors" *ngIf="title.errors.required">Please enter a movie title.</mat-error>
+                    <mat-error class="errors" *ngIf="movieTite">This movie title is allready exists</mat-error>
+                    <mat-error class="errors" *ngIf="title.errors.pattern">Only english characters are allowed</mat-error>
+                    <mat-error class="errors" *ngIf="title.errors.minlength">Title must be at least 2 characters long.</mat-error>
+                </div>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput type="text" name="runtime" [ngModel]="movie?.Runtime" required placeholder="Runtime in minutes"
+                    #Runtime="ngModel">
+                <div *ngIf="Runtime.invalid && (Runtime.dirty || Runtime.touched)">
+                    <mat-error class="errors" *ngIf="Runtime.errors.required">Please enter a movie runtime in minutes.</mat-error>
+                    <mat-error class="errors" *ngIf="runtimeError">Please enter at least one digit [1-9] </mat-error>
+                </div>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput type="text" pattern='[A-Za-z _.,!"-()?]*' name="genre" [ngModel]="movie?.Genre"
+                    required minlength="2" placeholder="Movie Genre" #Genre="ngModel">
+                <div *ngIf="Genre.invalid && (Genre.dirty || Genre.touched)">
+                    <mat-error class="errors" *ngIf="Genre.errors.required">Please enter a movie genre.</mat-error>
+                    <mat-error class="errors" *ngIf="Genre.errors.pattern">Only english characters are allowed</mat-error>
+                    <mat-error class="errors" *ngIf="Genre.errors.minlength">Year must be at least 2 characters long.</mat-error>
+                </div>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput type="text" pattern='[A-Za-z _.,!"-]*' name="director" [ngModel]="movie?.Director"
+                    required minlength="2" placeholder="Movie Director" #Director="ngModel">
+                <div *ngIf="Director.invalid && (Director.dirty || Director.touched)">
+                    <mat-error class="errors" *ngIf="Director.errors.required">Please enter a movie director.</mat-error>
+                    <mat-error class="errors" *ngIf="Director.errors.pattern">Only english characters are allowed</mat-error>
+                    <mat-error class="errors" *ngIf="Director.errors.minlength">Year must be at least 2 characters
+                        long.</mat-error>
+                </div>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput type="number" name="year" [ngModel]="movie?.Year" required placeholder="Movie Year"
+                    #year="ngModel">
+                <div *ngIf="year.invalid && (year.dirty || year.touched)">
+                    <mat-error class="errors" *ngIf="year.errors.required">Please enter a movie year.</mat-error>
+                    <mat-error class="errors" *ngIf="maxError">Year can't be above {{currentYear}}</mat-error>
+                    <mat-error class="errors" *ngIf="minError">Year must be at least 1900</mat-error>
+                </div>
+            </mat-form-field>
+            <div *ngIf="errorReq">
+                <mat-form-field>
+                    <mat-error class="errors" >Something got wrong, try again!</mat-error>
+
+                </mat-form-field>
+            </div>
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <button mat-raised-button color="accent" type="submit" [disabled]="postForm.invalid">Save Movie</button>
+            <button mat-button mat-dialog-close>Exit</button>
+        </mat-dialog-actions>
+    </form>
+</div>

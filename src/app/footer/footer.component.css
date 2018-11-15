@@ -1,0 +1,39 @@
+*{
+    bottom: 0;
+    color:white;
+    background: black;
+    height: 2em;
+    left: 0;
+    position: relative; 
+    font-size: small;
+    width:100%;
+    margin: 0;
+    vertical-align: middle;
+    height: 8%;
+
+}
+
+#footer{
+    position: inline-block;
+    margin: 0;
+}
+
+
+li{
+    list-style: none;
+}
+
+.spacer{
+    flex:1 1 auto;
+}
+
+.right{
+    width: 48%;
+    text-align: right;
+}
+.left{
+    width: 48%;
+}
+ul li{
+    display: inline-block;
+  }

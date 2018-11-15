@@ -1,0 +1,41 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+
+
+
+
+<body>
+    <mat-accordion multi="true" *ngIf="movies?.length > 0 && !isLoading">
+        <img *ngIf="notFound && !isLoading" src="/assets/gif/404.gif">
+        <h1 id="title">Movies List -
+            <small class="text-muted">{{movieName | titlecase }}</small>
+        </h1>
+        <div class="list">
+            <mat-expansion-panel *ngFor="let movie of movies" >
+                <mat-expansion-panel-header>
+                  {{movie.Title | titlecase | onlyEng }}
+                </mat-expansion-panel-header>
+                <div class="mat-body">
+                    <div class="poster">
+                        <img *ngIf="movie.Poster !== undefined" class="img-thumbnail" src={{movie.Poster}}>
+                    </div>
+                    <p class="p-param">
+                        <b>Year :</b> {{movie?.Year}}
+                    </p>
+                    <p class="p-param"><b>Runtimr :</b> {{movie?.Runtime | runtimePipe}}</p>
+                    <p class="p-param"><b>Genre :</b> {{movie?.Genre}}</p>
+                    <p class="p-param"><b>Director :</b> {{movie?.Director}}</p>
+                </div>
+                <mat-action-row>
+                    <a mat-button color="primary" (click)="onEdit(movie.id)">EDIT</a>
+                    <button mat-button color="warn" data-toggle="modal" (click)="onDelete(movie.id, movie.Title)"
+                        data-target="#deleteModal">DELETE</button>
+                </mat-action-row>
+
+            </mat-expansion-panel>
+        </div>
+    </mat-accordion>
+   
+
+    <p class="info-text mat-body-1" *ngIf="movies?.length <= 0  && !isLoading">No movies added, please try search again!</p>
+</body>
